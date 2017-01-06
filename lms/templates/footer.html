@@ -1,0 +1,79 @@
+## mako
+<%page expression_filter="h"/>
+<%!
+  from django.core.urlresolvers import reverse
+  from django.utils.translation import ugettext as _
+  from django.conf import settings
+  from branding.api import get_footer
+%>
+<% footer = get_footer(is_secure=is_secure) %>
+<%namespace name='static' file='static_content.html'/>
+
+<footer class="theme-footer">
+  <div class="theme-footer_holder">
+    <div class="theme-footer_section">
+      <span class="theme-footer_text">¿Tienes alguna pregunta o duda?, ¡contatanos!</span>
+      <a class="theme-btn" href="/contact">Contacto</a>
+    </div>
+  </div>
+  <div class="theme-footer_holder theme-footer_holder__color">
+    <div class="theme-footer_wrapper">
+      <div class="theme-footer_col">
+        <h2 class="theme-footer_col-header">Acerca de B United</h2>
+        <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="http://bunited.mx/">B United</a>  
+        </div>
+        <!--<div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="http://bunited.mx/">Acerca de...</a>
+        </div>
+        <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="http://bunited.mx/">Nuestros servicios</a>
+        </div>
+        <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="http://bunited.mx/">Blog</a>
+        </div> -->
+      </div>
+      <div class="theme-footer_col">
+        <h2 class="theme-footer_col-header">Plataforma</h2> 
+        <div class="theme-footer_col-holder">
+          <!-- <a class="theme-footer_col-link" href="/privacy">Política de privacidad</a> -->
+        </div>
+        <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="/honor">Codigo de Honor</a>
+        </div>
+        <div class="theme-footer_col-holder">
+<!--          <a class="theme-footer_col-link" href="/tos">Términos del servicio</a> -->
+        </div>
+      </div>
+      <div class="theme-footer_col">
+        <h2 class="theme-footer_col-header">Contacto</h2>
+        <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="/contact">Contacto</a>
+        </div>
+       <!-- <div class="theme-footer_col-holder">
+          <a class="theme-footer_col-link" href="/help">Ayuda</a>
+        </div> -->
+      </div>
+    </div>
+    <div class="theme-footer_section">
+      <div class="theme-footer_copyright">
+        © B United Online. All rights reserved except where noted. EdX, Open edX and the edX and Open EdX logos are registered trademarks or trademarks of edX Inc
+        <a href="${footer['openedx_link']['url']}">
+          <img src="${footer['openedx_link']['image']}" alt="${footer['openedx_link']['title']}" width="140" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+% if include_dependencies:
+  <%static:js group='base_vendor'/>
+  <%static:css group='style-vendor'/>
+  <%include file="widgets/segment-io.html" />
+  <%include file="widgets/segment-io-footer.html" />
+% endif
+% if footer_css_urls:
+  % for url in footer_css_urls:
+    <link rel="stylesheet" type="text/css" href="${url}"></link>
+  % endfor
+% endif
